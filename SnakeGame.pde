@@ -18,7 +18,7 @@ void setup() {
 void draw() {
   for(int c = 0; c < numCols; c++) {
     for(int r = 0; r < numRows; r++) {
-      if(millis()%100 == 0) {move();}
+      /*if(millis()%100 == 0) {*/move();//}
       squares[c][r].show();
     }
   }
