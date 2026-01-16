@@ -22,6 +22,7 @@ void draw() {
       squares[c][r].show();
     }
   }
+  fill(255);
   text(ud, 50, 50);
   text(lr, 100, 50);
 }
