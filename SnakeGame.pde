@@ -22,6 +22,8 @@ void draw() {
       squares[c][r].show();
     }
   }
+  text(ud, 50, 50);
+  text(lr, 100, 50);
 }
 
 class GridSquare {
