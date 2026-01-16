@@ -18,7 +18,7 @@ void setup() {
 void draw() {
   for(int c = 0; c < numCols; c++) {
     for(int r = 0; r < numRows; r++) {
-      if(millis()/100%5 == 0) {squares[c][r].move();}
+      if(millis()/100%5 == 0) {move();}
       squares[c][r].show();
     }
   }
@@ -37,14 +37,6 @@ class GridSquare {
     else if(snakeTail) {fill(0, 255, 0);}
     else {fill(0, 100, 100);}
     rect(myCol*800/numCols, myRow*800/numRows, 800/numCols, 800/numRows);
-  }
-  
-  public void move() {
-    if(isValid(myCol+lr, myRow+ud) && snakeHead) {
-      snakeHead = false;
-      squares[myCol+lr][myRow+ud].snakeHead = true;
-      snakeTail = true;
-    }
   }
   
   public boolean isValid(int c, int r) {
@@ -67,5 +59,17 @@ public void keyPressed() {
     lr = 1;
   }
 }
+
+public void move() {
+    for(int c = 0; c < numCols; c++) {
+      for(int r = 0; r < numRows; r++) {
+        if(isValid(c+lr, r+ud) && snakeHead) {
+          squares[c][r].snakeHead = false;
+          squares[c+lr][r+ud].snakeHead = true;
+          squares[c][r]snakeTail = true;
+        }
+      }
+    }
+  }
 
 
