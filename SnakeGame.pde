@@ -1,6 +1,5 @@
 boolean moveable = true, dead = false;
-int numCols = 20, numRows = 20, ud = 0, lr = 0, headC = numCols/2, headR = numRows/2, snakeLength = 0;
-int eyeSize;
+int numCols = 20, numRows = 20, ud = 0, lr = 0, headC = numCols/2, headR = numRows/2, snakeLength = 0, eyeSize, moveFrame = 0;
 GridSquare[][] squares = new GridSquare[numCols][numRows];
 ArrayList<Integer> oldC = new ArrayList<Integer>();
 ArrayList<Integer> oldR = new ArrayList<Integer>();
@@ -10,7 +9,7 @@ ArrayList<Integer> apples = new ArrayList<Integer>();
 void setup() {
   int appleC = (int) (Math.random()*numCols), appleR = (int) (Math.random()*numRows);
   size(800, 800);
-  frameRate(10);
+  frameRate(60);
   for(int c = 0; c < numCols; c++) {
     for(int r = 0; r < numRows; r++) {
       squares[c][r] = new GridSquare(c, r);
@@ -25,6 +24,7 @@ void setup() {
 }
 
 void draw() {
+  moveFrame++;
   snakeTail.clear();
   for(int i = oldC.size()-1; i >= oldC.size()-snakeLength; i--) {
     snakeTail.add(toI(oldC.get(i), oldR.get(i)));
@@ -32,7 +32,12 @@ void draw() {
   for(int i = 0; i < numRows*numCols; i++) {
     squares[toRow(i)][toCol(i)].show();
   }
-  move();
+  if(moveFrame > 6) {
+    move();
+    moveFrame = 0;
+  }
+  fill(255);
+  text(keyCode, 50, 50);
 }
 
 class GridSquare {
@@ -125,7 +130,7 @@ public void move() {
       }
     }
     moveable = true;
-    if(snakeTail.contains(toI(headC, headR))) {dead = true;}
+    if(snakeTail.contains(toI(headC, headR)) && !(snakeTail.get(snakeLength-1) == toI(headC, headR))) {dead = true;}
   } else {
     dead = true;
   }
